@@ -99,7 +99,9 @@ function renderButtons() {
 
 function renderPrice() {
   // Iteration 4: change the HTML of `<aside class="panel price">`
-  let pepperoniPrice = document.querySelector(".pep-price");
+
+  //Old Attempt
+/*   let pepperoniPrice = document.querySelector(".pep-price");
   let mushroomsPrice = document.querySelector(".mushroom-price");
   let pepperPrice = document.querySelector(".pepper-price");
   let saucePrice = document.querySelector(".sauce-price");
@@ -147,7 +149,27 @@ function renderPrice() {
 
   }
   totalPizzaPrice.innerHTML = `$${currentTotal}`;
+- */
 
+  // New version
+  let totalPrice = document.querySelector(".panel.price strong");
+  let ingredientList = document.querySelectorAll(".panel.price ul li");
+  let currentPrice = basePrice;
+
+  for (let ingredient in ingredients) {
+    let ingredientIndex = Object.keys(ingredients).indexOf(ingredient);
+    let ingredientPriceLi = ingredientList[ingredientIndex];
+
+
+    if(state[ingredient]){
+      currentPrice += ingredients[ingredient].price;
+      ingredientPriceLi.style.display = "block";
+    } else {
+      ingredientPriceLi.style.display = "none";
+  
+    }
+  }
+  totalPrice.innerHTML = `$${currentPrice}`;
 }
 
 renderEverything();
